@@ -1,0 +1,79 @@
+.wrapper {
+    font-size: 1.6rem;
+    padding: 6px 8px;
+    min-height: 36px;
+    border-radius: 4px;
+    min-width: 100px;
+    font-weight: 700;
+    font-family: 'ProximaNova', sans-serif;
+    line-height: 22px;
+    cursor: pointer;
+    background-color: var(--white);
+    border: 1px solid transparent;
+    user-select: none;
+
+    + .wrapper {
+        margin-left: 16px;
+    }
+}
+
+.primary {
+    color: var(--white);
+    background-color: var(--primary);
+
+    &:hover {
+        background: linear-gradient(0deg, rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)), #fe2c55;
+    }
+}
+
+.outline {
+    color: var(--primary);
+    border-color: currentColor;
+
+    &:hover {
+        background: rgba(254, 44, 85, 0.06);
+    }
+}
+
+.text {
+    color: var(--black);
+    background-color: var(--white);
+    border: 1px solid rgba(22, 24, 35, 0.12);
+
+    &:hover {
+        background: rgba(22, 24, 35, 0.03);
+    }
+}
+
+.small {
+    padding: 4px 16px;
+    min-width: 88px;
+}
+
+.large {
+    padding: 14px 16px;
+    min-width: 140px;
+}
+
+.icon + .title,
+.title + .icon {
+    margin-left: 8px;
+}
+
+.icon {
+    display: inline-block;
+    width: 24px;
+    text-align: center;
+}
+
+.rounded {
+    border-color: rgba(22, 24, 35, 0.12);
+    background-color: rgba(255, 255, 255, 1);
+    border-radius: 52px;
+    box-shadow: 0 2px 8px rgb(0 0 0 / 6%);
+
+    &:hover {
+        border-color: rgba(22, 24, 35, 0.2);
+        background-color: rgba(255, 255, 255, 1);
+    }
+}
