@@ -6,9 +6,9 @@ import Search from '~/pages/Search';
 
 import { HeaderOnly } from '~/components/Layouts';
 const publicRoutes = [
-    { path: '/home', component: Home },
+    { path: '/', component: Home },
     { path: '/following', component: Following },
-    { path: '/profile', component: Profile },
+    { path: '/@:nickname', component: Profile },
     { path: '/upload', component: Upload, layout: HeaderOnly },
     { path: '/search', component: Search, layout: null },
 ];
