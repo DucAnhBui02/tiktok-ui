@@ -2,13 +2,15 @@ import { useState, useEffect, useRef } from 'react';
 
 import HeadlessTippy from '@tippyjs/react/headless';
 import { faCircleXmark, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import classNames from 'classnames/bind';
+
+import * as searchServices from '~/apiServices/searchServices';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import AccountItems from '~/components/AccountItem';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import classNames from 'classnames/bind';
 import styles from './Search.module.scss';
 import { SearchIcon } from '~/components/Icons';
+import { useDebounce } from '~/hooks';
 
 const cx = classNames.bind(styles);
 
@@ -20,23 +22,24 @@ function Search() {
 
     const inputRef = useRef();
 
+    const debounced = useDebounce(searchValue, 500);
+
     useEffect(() => {
-        if (!searchValue.trim()) {
+        if (!debounced.trim()) {
             setSearchResults([]);
             return;
         }
 
-        setLoading(true);
-        fetch(`https://tiktok.fullstack.edu.vn/api/users/search?q=${encodeURIComponent(searchValue)}&type=less`)
-            .then((response) => response.json())
-            .then((results) => {
-                setSearchResults(results.data);
-                setLoading(false);
-            })
-            .catch(() => {
-                setLoading(false);
-            });
-    }, [searchValue]);
+        const fetchAPI = async () => {
+            setLoading(true);
+            const result = await searchServices.search(debounced);
+
+            setSearchResults(result);
+
+            setLoading(false);
+        };
+        fetchAPI();
+    }, [debounced]);
 
     const handleClear = () => {
         setSearchValue('');
@@ -46,6 +49,17 @@ function Search() {
 
     const handleHideResults = () => {
         setShowResults(false);
+    };
+
+    const handleChange = (e) => {
+        const searchValues = e.target.value;
+        if (!searchValues.startsWith(' ')) {
+            setSearchValue(e.target.value);
+        }
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
     };
 
     return (
@@ -71,7 +85,7 @@ function Search() {
                     value={searchValue}
                     placeholder="Search accounts and videos"
                     spellCheck={false}
-                    onChange={(e) => setSearchValue(e.target.value)}
+                    onChange={handleChange}
                     onFocus={setShowResults}
                 />
                 {!!searchValue && !loading && (
@@ -80,7 +94,7 @@ function Search() {
                     </button>
                 )}
                 {loading && <FontAwesomeIcon className={cx('loading')} icon={faSpinner} />}
-                <button className={cx('search-btn')}>
+                <button className={cx('search-btn')} onMouseDown={handleSubmit}>
                     <SearchIcon />
                 </button>
             </div>
