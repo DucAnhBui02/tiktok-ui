@@ -25,7 +25,7 @@ import { InboxIcon, MessageIcon } from '~/components/Icons';
 import Image from '~/components/Image';
 import img from '~/assets/img';
 import Search from '../Search';
-import routesConfig from '~/config/routes';
+import config from '~/config';
 
 const cx = classNames.bind(styles);
 
@@ -75,7 +75,7 @@ function Header() {
         {
             icon: <FontAwesomeIcon icon={faUser} />,
             title: 'View profile',
-            to: routesConfig.profile,
+            to: config.routes.profile,
         },
         {
             icon: <FontAwesomeIcon icon={faCoins} />,
@@ -103,7 +103,7 @@ function Header() {
     return (
         <header className={cx('wrapper')}>
             <div className={cx('inner')}>
-                <Link to={routesConfig.home} className={cx('logo')}>
+                <Link to={config.routes.home} className={cx('logo')}>
                     <img src={img.logo} alt="TikTok" />
                 </Link>
                 <Search />
@@ -136,12 +136,7 @@ function Header() {
 
                     <Menu items={currentUser ? userMenu : MENU_ITEMS} onChange={handleMenuChange}>
                         {currentUser ? (
-                            <Image
-                                className={cx('user-avatar')}
-                                src=""
-                                alt="nguyen van a"
-                                failback="https://yt3.ggpht.com/UsflU74uvka_3sejOu3LUGwzOhHJV0eIYoWcvOfkOre_c12uIN4ys-QqRlAkbusEmbZjTA-b=s88-c-k-c0x00ffffff-no-rj"
-                            />
+                            <Image className={cx('user-avatar')} src="" alt="nguyen van a" failback={img.avatar} />
                         ) : (
                             <button className={cx('more-btn')}>
                                 <FontAwesomeIcon icon={faEllipsisVertical} />

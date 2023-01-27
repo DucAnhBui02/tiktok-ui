@@ -6,15 +6,12 @@
     }
 }
 
-.menu-poper {
-    padding-bottom: 8px;
-}
-
 .header {
     position: relative;
     height: 50px;
     margin-top: -8px;
     cursor: pointer;
+    flex-shrink: 0;
 }
 
 .back-btn {
@@ -29,6 +26,14 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.menu-poper {
+    padding-bottom: 8px;
+}
+
+.menu-body {
+    overflow-y: auto;
 }
 
 .menu-item {

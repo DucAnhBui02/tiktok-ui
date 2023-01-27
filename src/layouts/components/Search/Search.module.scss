@@ -34,7 +34,7 @@
         position: absolute;
         right: var(--search-button-width);
         top: var(--search-top-spacer);
-        width: 1px;
+        width: 1.5px;
         height: calc(var(--search-height) - var(--search-top-spacer) * 2);
         background: rgba(22, 24, 35, 0.12);
     }
