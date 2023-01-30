@@ -1,12 +1,14 @@
 import { useState } from 'react';
 import classNames from 'classnames/bind';
-import styles from './Menu.module.scss';
 import Tippy from '@tippyjs/react/headless';
+import PropTypes from 'prop-types';
+import styles from './Menu.module.scss';
 import { Wrapper as PopperWrapper } from '~/components/Popper';
 import MenuItem from './MenuItem';
 import Header from './Header';
 
 const cx = classNames.bind(styles);
+
 const defaultFn = () => {};
 function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn }) {
     const [listLanguage, setListLanguage] = useState([{ data: items }]);
@@ -14,7 +16,7 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn 
 
     const renderItems = () => {
         return current.data.map((item, index) => {
-            const isParent = item.children;
+            const isParent = !!item.children;
             return (
                 <MenuItem
                     key={index}
@@ -56,5 +58,12 @@ function Menu({ children, items = [], hideOnClick = false, onChange = defaultFn 
         </Tippy>
     );
 }
+
+Menu.propTypes = {
+    children: PropTypes.node.isRequired,
+    items: PropTypes.array,
+    hideOnClick: PropTypes.bool,
+    onChange: PropTypes.func,
+};
 
 export default Menu;

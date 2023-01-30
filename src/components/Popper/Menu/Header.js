@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { faAngleLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import classNames from 'classnames/bind';
@@ -15,5 +16,10 @@ function Header({ title, onBackClick }) {
         </header>
     );
 }
+
+Header.propTypes = {
+    title: PropTypes.string.isRequired,
+    onBackClick: PropTypes.func.isRequired,
+};
 
 export default Header;
