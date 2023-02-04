@@ -17,29 +17,29 @@ const cx = classNames.bind(styles);
 function Search() {
     const [searchValue, setSearchValue] = useState('');
     const [searchResults, setSearchResults] = useState([]);
-    const [showResults, setShowResults] = useState(true);
+    const [showResults, setShowResults] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const inputRef = useRef();
 
-    const debounced = useDebounce(searchValue, 500);
+    const debouncedValue = useDebounce(searchValue, 500);
 
     useEffect(() => {
-        if (!debounced.trim()) {
+        if (!debouncedValue.trim()) {
             setSearchResults([]);
             return;
         }
 
         const fetchAPI = async () => {
             setLoading(true);
-            const result = await searchServices.search(debounced);
+            const result = await searchServices.search(debouncedValue);
 
             setSearchResults(result);
 
             setLoading(false);
         };
         fetchAPI();
-    }, [debounced]);
+    }, [debouncedValue]);
 
     const handleClear = () => {
         setSearchValue('');
@@ -90,7 +90,7 @@ function Search() {
                             placeholder="Search accounts and videos"
                             spellCheck={false}
                             onChange={handleChange}
-                            onFocus={setShowResults}
+                            onFocus={() => setShowResults(true)}
                         />
                         {!!searchValue && !loading && (
                             <button className={cx('clear')} onClick={handleClear}>
